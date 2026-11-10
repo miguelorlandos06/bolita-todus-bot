@@ -7,7 +7,7 @@ from todus import ToDusClient2
 
 # --- CONFIGURACIÓN HARDCODEADA ---
 MI_TELEFONO = "5351417372"
-MI_TOKEN = "TU_TOKEN_DE_96_CARACTERES_AQUI"  # Pega aquí tu token largo
+MI_TOKEN = "TU_TOKEN_DE_96_CARACTERES_AQUI"  # Pega aquí tu token real
 
 API_URL = "https://webapi.labolitacubana.com/results"
 HEADERS = {
@@ -72,11 +72,12 @@ def on_message(msg):
 
 if __name__ == "__main__":
     print("🤖 Iniciando cliente ToDus...")
-    client = ToDusClient2(MI_TELEFONO)
 
     try:
-        client.token = MI_TOKEN
-        print(f"✅ Token cargado para {MI_TELEFONO}")
+        # El token largo de 96 caracteres va como 'password'
+        client = ToDusClient2(MI_TELEFONO, password=MI_TOKEN)
+        client.login()
+        print(f"✅ Conectado como {MI_TELEFONO}")
         print("👂 Escuchando mensajes...")
         client.listen_messages(client.token, on_message)
     except Exception as e:
